@@ -127,6 +127,12 @@ function (
                     type: 'markdown',
                     input: 'markdown',
                     description: $translate.instant('survey.markdown_desc')
+                },
+                {
+                    label: 'Labels',
+                    type: 'labels',
+                    input: 'labels',
+                    description: $translate.instant('survey.label_desc')
                 }
             ];
         }

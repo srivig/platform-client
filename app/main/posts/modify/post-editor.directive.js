@@ -82,10 +82,6 @@ function PostEditorController(
     activate();
 
     function activate() {
-        TagEndpoint.query().$promise.then(function (results) {
-            $scope.categories = results;
-        });
-
         $scope.post.form = $scope.form;
         $scope.fetchAttributesAndTasks($scope.post.form.id)
         .then(function () {
@@ -106,14 +102,15 @@ function PostEditorController(
     function fetchAttributesAndTasks(formId) {
         return $q.all([
             FormStageEndpoint.query({ formId: formId }).$promise,
-            FormAttributeEndpoint.query({ formId: formId }).$promise
+            FormAttributeEndpoint.query({ formId: formId }).$promise,
+            TagEndpoint.queryFresh({formId: formId}).$promise
         ]).then(function (results) {
             var post = $scope.post;
             var tasks = _.sortBy(results[0], 'priority');
             var attrs = _.chain(results[1])
                 .sortBy('priority')
                 .value();
-
+            $scope.categories = results[2];
             // If attributesToIgnore is set, remove those attributes from set of fields to display
             var attributes = [];
             _.each(attrs, function (attr) {
@@ -221,7 +218,6 @@ function PostEditorController(
             Notify.error('post.valid.validation_fail');
             return;
         }
-
         // Create/update any associated media objects
         // Media creation must be completed before we can progress with saving
         resolveMedia().then(function () {

@@ -1,0 +1,12 @@
+<div class="form-field checkbox" ng-repeat="category in categories">
+    <label for="cat1">
+        <input 
+            type="checkbox"
+            value="category.id"
+            name="tags"
+            checklist-value="category.id"
+            checklist-model="postTags"
+            >
+        <span>{{category.tag}}</span>
+    </label>
+</div> 

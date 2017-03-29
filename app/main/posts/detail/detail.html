@@ -54,7 +54,12 @@
         </header>
 
         <post-actions post="post"></post-actions>
-
+        <div 
+          ng-if="post.tags"
+          ng-repeat="(key,value) in post.tags"
+          >
+          {{value.tag}}
+          </div>
         <div
           ng-repeat="(key,value) in post.values"
           ng-if="isPostValue(key) && form_attributes[key] && showType(form_attributes[key].type)"
@@ -72,7 +77,7 @@
           <p markdown-to-html="post.content"></p>
         </div>
 
-        <div
+        <!-- <div
           ng-if="!!post.tags.length"
           class="postcard-field"
           >
@@ -80,7 +85,7 @@
           <p ng-repeat="category in post.tags">
             {{category.tag}}
           </p>
-        </div>
+        </div> -->
         <post-value
           ng-repeat="(key,value) in post.values"
           ng-if="form_attributes[key].type !== 'media' && isPostValue(key) && showType(form_attributes[key].type)"

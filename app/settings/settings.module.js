@@ -12,7 +12,7 @@ angular.module('ushahidi.settings', [])
 .directive('settingsList', require('./settings-list.directive.js'))
 .directive('settingsMap', require('./site/map.directive.js'))
 .directive('settingsEditor', require('./site/editor.directive.js'))
-
+.directive('addLabel', require('./categories/add-label.directive.js'))
 .directive('filterUsers', require('./users/filter-users.directive.js'))
 
 .directive('customRoles', require('./roles/roles.directive.js'))

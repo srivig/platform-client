@@ -22,6 +22,7 @@ SurveyEditorController.$inject = [
     'FormStageEndpoint',
     'FormAttributeEndpoint',
     'RoleEndpoint',
+    'TagEndpoint',
     '_',
     'Notify',
     'SurveyNotify',
@@ -38,6 +39,7 @@ function SurveyEditorController(
     FormStageEndpoint,
     FormAttributeEndpoint,
     RoleEndpoint,
+    TagEndpoint,
     _,
     Notify,
     SurveyNotify,
@@ -145,6 +147,7 @@ function SurveyEditorController(
         }
 
         loadAvailableForms();
+        loadAvailableTags();
 
         if (!$scope.surveyId) {
             $q.all([Features.loadFeatures(), FormEndpoint.query().$promise]).then(function (data) {
@@ -193,6 +196,15 @@ function SurveyEditorController(
             $scope.availableForms = forms;
         });
     }
+    function loadAvailableTags() {
+        var params = {};
+        if ($scope.surveyId) {
+            params.formId = $scope.surveyId;
+        }
+        TagEndpoint.queryFresh(params).$promise.then(function (tags) {
+            $scope.availableLabels = tags;
+        });
+    }
 
     function loadFormData() {
         // If we're editing an existing survey,
@@ -216,6 +228,7 @@ function SurveyEditorController(
             });
             //survey.grouped_attributes = _.sortBy(survey.attributes, 'form_stage_id');
             $scope.survey = survey;
+            console.log(survey)
 
             //Set Active task
             $scope.resetSelectedTask();
@@ -534,7 +547,6 @@ function SurveyEditorController(
 
     function saveAttributes() {
         var calls = [];
-
         _.each($scope.survey.tasks, function (task) {
             _.each(task.attributes, function (attribute) {
                 attribute.form_stage_id = task.id;

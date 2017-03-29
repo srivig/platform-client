@@ -141,6 +141,15 @@
                   ng-model="post.values[attribute.key][key]"
                   ng-required="attribute.required"
               ></post-video-input>
+              <post-labels
+                ng-switch-when="labels"
+                name="values_{{attribute.id}}"
+                categories="categories"
+                post-tags="post.tags"
+                ng-model="post.values[attribute.key][key]"
+                >
+                </post-labels>
+                {{post.values[attribute.key]}}
           </div>
       </div>
       <div class="alert error" ng-show="form['values_' + attribute.id].$dirty && taskIsMarkedCompleted()" ng-repeat="(error, value) in form['values_' + attribute.id].$error">

@@ -46,7 +46,6 @@ function (
     $scope.canCreatePostInSurvey = PostSurveyService.canCreatePostInSurvey;
     $scope.mapDataLoaded = false;
     $scope.form_attributes = [];
-
     $scope.publishedFor = function () {
         if ($scope.post.status === 'draft') {
             return 'post.publish_for_you';
@@ -57,6 +56,7 @@ function (
 
         return 'post.publish_for_everyone';
     };
+
 
     $scope.stageIsComplete = function (stageId) {
         return _.includes($scope.post.completed_stages, stageId);
@@ -141,6 +141,7 @@ function (
             // Figure out which tasks have values
             $scope.tasks_with_attributes = [];
             _.each($scope.post.values, function (value, key) {
+
                 if ($scope.form_attributes[key]) {
                     $scope.tasks_with_attributes.push($scope.form_attributes[key].form_stage_id);
                 }

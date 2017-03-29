@@ -10,7 +10,8 @@ function PostValueEdit() {
             post: '=',
             attribute: '=',
             postField: '=',
-            medias: '='
+            medias: '=',
+            categories: '='
         },
         controller: PostValueEditController,
         template: require('./post-value-edit.html')
